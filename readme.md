@@ -5,7 +5,7 @@
 4. socket ---> Java 网络编程
 5. thread ---> Java 多线程
 6. throwable ---> Java 异常模块
-
+7. design-patterns ---> 设计模式
 
 
 
