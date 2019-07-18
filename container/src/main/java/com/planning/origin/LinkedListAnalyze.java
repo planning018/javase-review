@@ -31,7 +31,6 @@ public class LinkedListAnalyze {
             System.out.println(str);
         }
 
-        strList.isEmpty();
 
     }
 
