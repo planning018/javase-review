@@ -28,4 +28,36 @@ public class ArrayListAnalyze {
 
         System.out.println(JSON.toJSONString(strList));
     }
+
+    /**
+     *  在使用 ArrayList(Collection<? extends E> c) 构造方法时，为什么 c.toArray 有可能不是 Object[] 类型
+     */
+    @Test
+    public void test(){
+        Father[] fathers = new Son[]{};
+        // class [Lcom.planning.origin.ArrayListAnalyze$Son;
+        System.out.println(fathers.getClass());
+
+        List<String> strList = new MyList();
+        // class [Ljava.lang.String;
+        System.out.println(strList.toArray().getClass());
+    }
+
+    class Father{}
+
+    class Son extends Father {}
+
+    class MyList extends ArrayList<String> {
+
+        /**
+         * 子类重写父类的方法，返回值可以不一样
+         *
+         * @return
+         */
+        @Override
+        public Object[] toArray() {
+            // 为了方便，直接把值写死
+            return new String[]{"1","2","3"};
+        }
+    }
 }
