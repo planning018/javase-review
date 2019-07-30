@@ -1,8 +1,11 @@
 package com.planning.origin;
 
+import com.alibaba.fastjson.JSON;
 import org.junit.Test;
 
 import java.math.BigInteger;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * HashMap 源码分析
@@ -16,7 +19,13 @@ public class HashMapAnalyze {
     @Test
     public void test(){
         // 了解一下 源码 的 tableSizeFor 方法
-        System.out.println(tableSizeFor(33));;
+        //System.out.println(tableSizeFor(33));
+
+        // 了解一下 HashMap#put() 方法的内部逻辑
+        Map<String,String> map = new HashMap<>();
+        map.put("person","zhangsan");
+
+        System.out.println(JSON.toJSONString(map));
     }
 
     private int tableSizeFor(int cap) {
