@@ -1,5 +1,6 @@
 package com.yeyangmei.test;
 
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
 import java.io.BufferedReader;
@@ -29,6 +30,12 @@ public class Test01 {
         }
         br.close();
         System.out.println(sb.toString().replaceAll("&nbsp",""));
+    }
+
+    @Test
+    public void strTest(){
+        String str = "";
+        System.out.println(StringUtils.isBlank(str));
     }
 
 }
