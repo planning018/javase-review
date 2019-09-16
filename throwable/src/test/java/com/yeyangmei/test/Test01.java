@@ -32,10 +32,4 @@ public class Test01 {
         System.out.println(sb.toString().replaceAll("&nbsp",""));
     }
 
-    @Test
-    public void strTest(){
-        String str = "";
-        System.out.println(StringUtils.isBlank(str));
-    }
-
 }
