@@ -3,7 +3,9 @@ package com.planning.review.lambda;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 举例说明 lambda 表达式的优势
@@ -34,6 +36,19 @@ public class LambdaExamples {
 
         System.out.println("使用 forEach 总和是：" + sum);
         System.out.println("总和 lambda 表达式总和是：" + sum2);
+    }
 
+    // 使用 lambda 表达式遍历集合（推荐）
+    @Test
+    public void iteratorMap(){
+        Map<String,String> map = new HashMap<>();
+        map.put("key1","value1");
+        map.put("key2","value2");
+        map.put("key3","value3");
+        map.put("key4","value4");
+
+        map.forEach((k,v) -> {
+            System.out.println( k + " --- " + v);
+        });
     }
 }
