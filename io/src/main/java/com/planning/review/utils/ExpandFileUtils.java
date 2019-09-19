@@ -29,7 +29,7 @@ public class ExpandFileUtils {
      * iterator the file path
      * @param file filePath
      */
-    public static void iteratorFilePath(File file){
+    private static void iteratorFilePath(File file){
         while(file.isDirectory()){
             for(File f : file.listFiles()){
                 System.out.println(f.getPath());
