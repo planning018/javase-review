@@ -20,7 +20,7 @@ public class ReceiveDemo {
 		DatagramSocket socket = new DatagramSocket(10086);
 		
 		//创建一个数据包，用于接收数据
-		byte[] bys = new byte[1024];//注意：因为我知道数据量不多，所以指定的是1024
+		byte[] bys = new byte[1024];  //注意：因为我知道数据量不多，所以指定的是1024
 		DatagramPacket packet = new DatagramPacket(bys, bys.length);
 		
 		//接收数据
