@@ -1,5 +1,6 @@
 package com.yeyangmei.test;
 
+import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -7,6 +8,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @Author: planning
@@ -28,28 +30,58 @@ public class Test01 {
             occupyTruckLengthResult = "/占_米".replace("_", occupyTruckLength);
         }
 
+        if(StringUtils.isBlank(truckLengthResult)){
+            occupyTruckLengthResult = occupyTruckLengthResult.replace("/","");
+        }
+
         return truckLengthResult + occupyTruckLengthResult;
     }
 
     private String dealTruckLength(String truckLength){
         if(StringUtils.isBlank(truckLength)){
-            // TODO: 2019/9/19 稍后配置一下 log4j 的配置文件
             logger.info("字符串不合法");
             return "";
         }
-        List<String> str1List = Arrays.asList(truckLength.split(","));
+
+        if("-1".equals(truckLength)){
+            return "不限车长";
+        }
+
+        return truckLength.replace(",","/") + "米";
+
+/*        List<String> str1List = Arrays.asList(truckLength.split(","));
+        if(str1List.contains("-1")){
+            return "不限车长";
+        }
         StringBuilder sbf = new StringBuilder();
         for(String str : str1List){
-            if("-1".equals(str)){
-                return "不限车长";
-            }
             sbf.append(str);
             if((str1List.indexOf(str) + 1) != str1List.size()){
                 sbf.append("/");
             }
         }
         sbf.append("米");
-        return sbf.toString();
+        return sbf.toString();*/
+    }
+
+    private String finalTruckLengthNew(String truckLength, String occupyTruckLength) {
+        List<String> lengthList = Lists.newArrayList();
+        if (StringUtils.isNotBlank(truckLength)) {
+            List<String> realLengthList = Arrays.asList(truckLength.split(","));
+            if (realLengthList.contains("-1")) {
+                lengthList.add("不限车长");
+            } else {
+                lengthList.addAll(realLengthList);
+                int index = lengthList.size() - 1;
+                lengthList.set(index, lengthList.get(index) + "米");
+            }
+        }
+
+        if (StringUtils.isNotBlank(occupyTruckLength)) {
+            lengthList.add("占_米".replace("_",occupyTruckLength));
+        }
+
+        return StringUtils.join(lengthList.stream().filter(StringUtils :: isNotBlank).collect(Collectors.toList()), "/");
     }
 
     @Test
@@ -57,12 +89,16 @@ public class Test01 {
         String truckLength = "1.2,2.3,4";
         String truckLength1 = "-1";
         String truckLength2 = "";
+        String truckLength3 = "1.2";
 
         String occupyTruckLength = "1.7";
         String occupyTruckLength1 = " ";
         String occupyTruckLength2 = null;
-        System.out.println("result is " + replace(truckLength, occupyTruckLength));
-        logger.info("result is {}", replace(truckLength,occupyTruckLength));
+        //System.out.println("result is " + replace(truckLength, occupyTruckLength));
+        //logger.info("result is {}", replace(truckLength2,occupyTruckLength));
+        System.out.println(dealTruckLength(truckLength3));
+
+        //logger.info(finalTruckLengthNew(truckLength,occupyTruckLength2));
     }
 
 }
