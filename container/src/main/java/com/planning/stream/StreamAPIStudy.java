@@ -1,12 +1,7 @@
 package com.planning.stream;
 
 import com.alibaba.fastjson.JSON;
-import com.google.common.collect.Lists;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStreamReader;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;

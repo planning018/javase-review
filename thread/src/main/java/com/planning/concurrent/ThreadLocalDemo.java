@@ -14,7 +14,7 @@ public class ThreadLocalDemo {
         }
     };
 
-    public int nextSeq(){
+    private int nextSeq(){
         seqCount.set(seqCount.get() + 1);
 
         return seqCount.get();

@@ -85,6 +85,12 @@ public class Test01 {
     }
 
     @Test
+    public void testSubstring(){
+        String str = "hello";
+        System.out.println(str.substring(0,3));
+    }
+
+    @Test
     public void test(){
         String truckLength = "1.2,2.3,4";
         String truckLength1 = "-1";
