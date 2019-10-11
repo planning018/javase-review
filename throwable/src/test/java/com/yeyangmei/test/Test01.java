@@ -91,6 +91,14 @@ public class Test01 {
     }
 
     @Test
+    public void testListCompare(){
+        List<Integer> list1 = Arrays.asList(1,2,3);
+        List<Integer> list2 = Arrays.asList(2,3);
+
+        System.out.println(list1.containsAll(list2));
+    }
+
+    @Test
     public void test(){
         String truckLength = "1.2,2.3,4";
         String truckLength1 = "-1";
