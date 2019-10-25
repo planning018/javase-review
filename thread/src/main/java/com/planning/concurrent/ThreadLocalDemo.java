@@ -1,7 +1,7 @@
 package com.planning.concurrent;
 
 /**
- * 分析 ThreadLocal
+ * 分析 ThreadLocal 的用法
  * @Author: planning
  * @Date: 2019/7/30 9:57
  */

@@ -1,6 +1,7 @@
 package com.yeyangmei.test;
 
 import com.google.common.collect.Lists;
+import com.yeyangmei.bean.Person;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -88,6 +89,10 @@ public class Test01 {
     public void testSubstring(){
         String str = "hello";
         System.out.println(str.substring(0,3));
+
+        System.out.println("result is :" + 12432311 % 100);
+        System.out.println("result is :" + 12432312 / 100);
+
     }
 
     @Test
@@ -113,6 +118,21 @@ public class Test01 {
         System.out.println(dealTruckLength(truckLength3));
 
         //logger.info(finalTruckLengthNew(truckLength,occupyTruckLength2));
+    }
+
+    @Test
+    public void testObject(){
+        Person p1 = new Person("zhangsan","123");
+        p1 = changePerson(p1, true);
+        System.out.println(p1.toString());
+    }
+
+    private Person changePerson(Person p1, boolean judge){
+        if(judge){
+            Person p2 = new Person("lisi","234");
+            return p2;
+        }
+        return p1;
     }
 
 }
