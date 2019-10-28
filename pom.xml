@@ -19,6 +19,10 @@
         <module>design-patterns</module>
     </modules>
 
+    <properties>
+        <lombok.version>1.18.4</lombok.version>
+    </properties>
+
     <dependencies>
         <!--框架层面-->
         <dependency>
@@ -55,6 +59,12 @@
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
             <version>28.1-jre</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
         </dependency>
     </dependencies>
 
