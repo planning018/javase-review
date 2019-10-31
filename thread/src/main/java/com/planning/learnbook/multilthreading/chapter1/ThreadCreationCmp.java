@@ -1,4 +1,4 @@
-package com.planning.learnbook.multilthreading.chapterone;
+package com.planning.learnbook.multilthreading.chapter1;
 
 /**
  * 《Java 多线程编程实战指南》 第一章
