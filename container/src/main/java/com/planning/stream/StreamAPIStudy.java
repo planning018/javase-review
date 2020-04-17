@@ -88,7 +88,7 @@ public class StreamAPIStudy {
     /**
      * reduce 的用例
      */
-    private static void StreamReduce(){
+    private static void streamReduce(){
         // 字符串拼接，concat = "ABCD"
         String concat = Stream.of("A", "B", "C", "D").reduce("", String::concat);
         System.out.println("concat result is " + concat);
@@ -125,7 +125,7 @@ public class StreamAPIStudy {
         //streamFlatMap();
 
         //streamFilterNum();
-        StreamReduce();
+        streamReduce();
 
         // TODO: 2019/9/26 后续在补充 limit/skip,  sorted, min/max/distinct, Match 等 API
     }

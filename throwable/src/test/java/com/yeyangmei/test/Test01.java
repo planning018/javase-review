@@ -7,8 +7,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -133,6 +132,12 @@ public class Test01 {
             return p2;
         }
         return p1;
+    }
+
+    @Test
+    public void test11(){
+        Map map = new HashMap();
+        System.out.println(map.values());
     }
 
 }
