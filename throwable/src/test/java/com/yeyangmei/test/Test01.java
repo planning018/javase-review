@@ -1,5 +1,6 @@
 package com.yeyangmei.test;
 
+import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Lists;
 import com.yeyangmei.bean.Person;
 import org.apache.commons.lang3.StringUtils;
@@ -132,6 +133,20 @@ public class Test01 {
             return p2;
         }
         return p1;
+    }
+
+    @Test
+    public void testStream(){
+        // 准备数据
+        Person p1 = new Person("zhangsan","234");
+        Person p2 = new Person("lisi","234");
+
+        List<Person> personList = Lists.newArrayList(p1,p2);
+        TestListResponse response = new TestListResponse();
+        response.setPersonList(personList);
+
+        // 进行测试，使用 orElseGet 优化输出
+        System.out.println(JSON.toJSONString(Optional.ofNullable(response).map(TestListResponse::getPersonList).orElseGet(Lists::newArrayList)));
     }
 
     @Test
