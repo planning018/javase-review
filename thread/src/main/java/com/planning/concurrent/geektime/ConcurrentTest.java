@@ -1,40 +1,50 @@
 package com.planning.concurrent.geektime;
 
+import org.junit.Test;
+
+import java.util.Date;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 /**
  * Concurrent Test Class
+ * @author yxc
  */
 public class ConcurrentTest {
 
-    private long count = 0;
+    private static Integer count = 0;
 
-    private void addNum(){
-        for (int i = 0; i < 10000; i++) {
-            count ++;
+    private void addNum() {
+        synchronized (this){
+            count++;
+
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            Thread t = Thread.currentThread();
+            System.out.println(t.getName() + ">>> count: " + count + " time: " + new Date());
         }
     }
 
-    private long cal() throws InterruptedException{
-        // create two thread
-        Thread thread1 = new Thread(this::addNum);
-        Thread thread2 = new Thread(this::addNum);
+    @Test
+    public void cal() {
 
-        // start thread
-        thread1.start();
-        thread2.start();
+        ExecutorService executorService = Executors.newFixedThreadPool(5);
 
-        // wait for thread end
-        thread1.join();
-        thread2.join();
+        for (int i = 0; i < 100; i++) {
+            executorService.submit(this::addNum);
+        }
 
-        return count;
-    }
-
-    public static void main(String[] args) {
-        ConcurrentTest test = new ConcurrentTest();
         try {
-            System.out.println("cal result is :" + test.cal());;
+            Thread.sleep(5000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
+        System.out.println("end >>> " + count);
+
     }
+
 }

@@ -1,9 +1,12 @@
 package com.planning.concurrent.geektime;
 
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
+import org.apache.commons.lang3.time.DateUtils;
 import org.junit.Test;
 
+import java.util.Date;
 import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
@@ -13,56 +16,45 @@ import java.util.concurrent.TimeUnit;
  **/
 public class AccountTest {
 
-    private static final ThreadPoolExecutor EXECUTOR = new ThreadPoolExecutor(4, 10, 1000,
-            TimeUnit.MILLISECONDS, new ArrayBlockingQueue<>(16), new ThreadFactoryBuilder().setNameFormat("Accout-task-thread-pool-%d").build());
-
-    @Test
-    public void testMain() {
-        for(int i = 0; i < 5000; i ++){
-            testAccount();
-        }
-    }
+    private static final ThreadPoolExecutor EXECUTOR = new ThreadPoolExecutor(4, 4, 1000,
+            TimeUnit.MILLISECONDS, new LinkedBlockingQueue<>(), new ThreadFactoryBuilder().setNameFormat("Accout-task-thread-pool-%d").build());
 
     /**
      * 采用 细粒度锁 这种方式 password 的值会存在并发问题
      * todo 是使用方式不对吗？留待后续观察?
      */
-    private void testAccount() {
+    @Test
+    public void testAccount() {
         //Account a = new Account();
         Account2 a = new Account2();
         a.initBalance();
 
-        Thread thread1 = new Thread(()->{
-            a.withdraw(100);
-            a.updatePassword("123");
-        });
+        for (int i = 0; i < 5; i++) {
+            EXECUTOR.submit(() -> {
+                a.withdraw(100);
+                a.updatePassword("123");
+            });
 
-        Thread thread2 = new Thread(()->{
-            a.withdraw(100);
-            a.updatePassword("234");
-        });
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
 
-/*        EXECUTOR.execute(() -> {
-            a.withdraw(100);
-            a.updatePassword("123");
-        });
-        EXECUTOR.execute(() -> {
-            a.withdraw(100);
-            a.updatePassword("234");
-        });*/
-
-        thread1.start();
-        thread2.start();
+            EXECUTOR.submit(() -> {
+                a.withdraw(100);
+                a.updatePassword("234");
+            });
+        }
 
         try {
-            thread1.join();
-            thread2.join();
+            Thread.sleep(500);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
-        System.out.println("balance result is : " + a.getBalance());
-        System.out.println("balance password is : " + a.getPassword());
+        System.out.println("end balance result is : " + a.getBalance());
+        System.out.println("end balance password is : " + a.getPassword());
     }
 
 
@@ -90,40 +82,42 @@ public class AccountTest {
 
         /**
          * 取款
+         *
          * @param amt
          */
-        void withdraw(Integer amt){
-            synchronized (balLock){
-                if (this.balance > amt){
+        void withdraw(Integer amt) {
+            synchronized (balLock) {
+                if (this.balance > amt) {
                     this.balance -= amt;
                 }
             }
         }
 
-        void initBalance(){
-            synchronized (balLock){
+        void initBalance() {
+            synchronized (balLock) {
                 this.balance = 500;
             }
         }
 
         /**
          * 查看余额
+         *
          * @return
          */
-        Integer getBalance(){
-            synchronized (balLock){
+        Integer getBalance() {
+            synchronized (balLock) {
                 return this.balance;
             }
         }
 
-        void updatePassword(String pw){
-            synchronized (pwLock){
+        void updatePassword(String pw) {
+            synchronized (pwLock) {
                 this.password = pw;
             }
         }
 
-        String getPassword(){
-            synchronized (pwLock){
+        String getPassword() {
+            synchronized (pwLock) {
                 return password;
             }
         }
@@ -143,40 +137,46 @@ public class AccountTest {
 
         /**
          * 取款
+         *
          * @param amt
          */
-        void withdraw(Integer amt){
-            synchronized (Account2.class){
-                if (this.balance > amt){
+        void withdraw(Integer amt) {
+            Thread t = Thread.currentThread();
+            synchronized (Account2.class) {
+                if (this.balance > amt) {
                     this.balance -= amt;
                 }
             }
+            System.out.println(t.getName() + ">>> balance: " + balance);
         }
 
-        void initBalance(){
-            synchronized (Account2.class){
-                this.balance = 500;
+        void initBalance() {
+            synchronized (Account2.class) {
+                this.balance = 5000;
             }
         }
 
         /**
          * 查看余额
+         *
          * @return
          */
-        Integer getBalance(){
-            synchronized (Account2.class){
+        Integer getBalance() {
+            synchronized (Account2.class) {
                 return this.balance;
             }
         }
 
-        void updatePassword(String pw){
-            synchronized (Account2.class){
+        void updatePassword(String pw) {
+            Thread t = Thread.currentThread();
+            synchronized (Account2.class) {
                 this.password = pw;
             }
+            System.out.println(t.getName() + ">>> password: " + password);
         }
 
-        String getPassword(){
-            synchronized (Account2.class){
+        String getPassword() {
+            synchronized (Account2.class) {
                 return password;
             }
         }
