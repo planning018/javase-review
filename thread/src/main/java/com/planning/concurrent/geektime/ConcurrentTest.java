@@ -1,4 +1,4 @@
-package com.planning.concurrent.geektime01;
+package com.planning.concurrent.geektime;
 
 /**
  * Concurrent Test Class
