@@ -9,6 +9,7 @@ public class ThreadLocalDemo {
 
     private static ThreadLocal<Integer> seqCount = new ThreadLocal<Integer>(){
         // 实现 initialValue
+        @Override
         protected Integer initialValue() {
             return 0;
         }
