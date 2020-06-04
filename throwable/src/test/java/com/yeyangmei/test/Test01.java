@@ -149,7 +149,7 @@ public class Test01 {
 
         // 进行测试，使用 orElseGet 优化输出
         System.out.println(JSON.toJSONString(Optional.ofNullable(response).map(TestListResponse::getPersonList).orElseGet(Lists::newArrayList)));
-    }*/
+    }
 
     @Test
     public void testMapValue() {
