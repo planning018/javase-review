@@ -31,24 +31,26 @@ public class LambdaExamples {
         // 使用 lambda 表达式
         List<Integer> numList = Arrays.asList(num);
         //分别打印出每一个数字的平方
-        //numList.stream().map((x) -> x*x).forEach(System.out::println);
-        int sum2 = numList.stream().map((x) -> x*x).reduce((x,y) -> x+y).get();
+        // numList.stream().map((x) -> x*x).forEach(System.out::println);
+        int sum2 = numList.stream().map((x) -> x * x).reduce((x, y) -> x + y).get();
 
         System.out.println("使用 forEach 总和是：" + sum);
         System.out.println("总和 lambda 表达式总和是：" + sum2);
     }
 
-    // 使用 lambda 表达式遍历集合（推荐）
+    /**
+     * 使用 lambda 表达式遍历集合（推荐）
+     */
     @Test
-    public void iteratorMap(){
-        Map<String,String> map = new HashMap<>();
-        map.put("key1","value1");
-        map.put("key2","value2");
-        map.put("key3","value3");
-        map.put("key4","value4");
+    public void iteratorMap() {
+        Map<String, String> map = new HashMap<>();
+        map.put("key1", "value1");
+        map.put("key2", "value2");
+        map.put("key3", "value3");
+        map.put("key4", "value4");
 
-        map.forEach((k,v) -> {
-            System.out.println( k + " --- " + v);
+        map.forEach((k, v) -> {
+            System.out.println(k + " --- " + v);
         });
     }
 }

@@ -149,12 +149,25 @@ public class Test01 {
 
         // 进行测试，使用 orElseGet 优化输出
         System.out.println(JSON.toJSONString(Optional.ofNullable(response).map(TestListResponse::getPersonList).orElseGet(Lists::newArrayList)));
-    }
+    }*/
 
     @Test
     public void testMapValue() {
-        Map map = new HashMap();
-        System.out.println(map.values());
+//        Map map = new HashMap();
+//        System.out.println(map.values());
+
+        System.out.println(hailstone(27));
+        System.out.println(hailstone(42));
+    }
+
+    private int hailstone(int n) {
+        int length = 1;
+        while (n > 1) {
+            n = n % 2 == 0 ? n / 2 : 3 * n + 1;
+            System.out.print(n+ " ");
+            length++;
+        }
+        return length;
     }
 
     @Test
