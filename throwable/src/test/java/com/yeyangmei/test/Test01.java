@@ -135,7 +135,7 @@ public class Test01 {
         return p1;
     }
 
-    @Test
+/*    @Test
     public void testStream(){
         // 准备数据
         Person p1 = new Person("zhangsan","234");
@@ -147,7 +147,7 @@ public class Test01 {
 
         // 进行测试，使用 orElseGet 优化输出
         System.out.println(JSON.toJSONString(Optional.ofNullable(response).map(TestListResponse::getPersonList).orElseGet(Lists::newArrayList)));
-    }
+    }*/
 
     @Test
     public void test11() {
