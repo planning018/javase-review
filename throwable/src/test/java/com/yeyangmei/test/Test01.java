@@ -182,6 +182,7 @@ public class Test01 {
         Map<String, Object> extData = new HashMap<>();
         extData.put("startCity", "杭州");
         extData.put("platformFrom", "YMM");
+        extData.put("cargoId", 1313131L);
 
         map.put("extData", extData);
 
