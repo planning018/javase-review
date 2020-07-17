@@ -89,11 +89,17 @@ public class Test01 {
 
     @Test
     public void testSubstring() {
-        String str = "hello";
+/*        String str = "hello";
         System.out.println(str.substring(0, 3));
 
         System.out.println("result is :" + 12432311 % 100);
-        System.out.println("result is :" + 12432312 / 100);
+        System.out.println("result is :" + 12432312 / 100);*/
+
+        //String complexString = "1a0123a0sdsa01sdas";
+        //System.out.println(complexString.replaceAll("a0","a0 \n"));
+
+
+        System.out.println(StringUtils.strip("[a,b]","[]"));
 
     }
 
@@ -153,11 +159,13 @@ public class Test01 {
 
     @Test
     public void testMapValue() {
-//        Map map = new HashMap();
-//        System.out.println(map.values());
+        Map map = new HashMap();
+        System.out.println(map.values());
 
-        System.out.println(hailstone(27));
-        System.out.println(hailstone(42));
+        System.out.println(map.remove("1"));
+
+        //System.out.println(hailstone(27));
+        //System.out.println(hailstone(42));
     }
 
     private int hailstone(int n) {
@@ -192,6 +200,14 @@ public class Test01 {
         // 此处注意要用 List<Map<String,Object>> map 接收
         PhoneFilterResultVO phoneFilterResultVO = JSON.parseObject(str, PhoneFilterResultVO.class);
         System.out.println(JSON.toJSONString(phoneFilterResultVO));
+    }
+
+    @Test
+    public void testCal(){
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DATE),23,59,59);
+
+        System.out.println(calendar.getTime());
     }
 
 }
