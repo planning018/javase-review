@@ -3,6 +3,7 @@ package com.yeyangmei.test;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 import com.yeyangmei.bean.Person;
 import com.yeyangmei.bean.PhoneFilterResultVO;
 import org.apache.commons.lang3.StringUtils;
@@ -108,7 +109,11 @@ public class Test01 {
         List<Integer> list1 = Arrays.asList(1, 2, 3);
         List<Integer> list2 = Arrays.asList(2, 3);
 
-        System.out.println(list1.containsAll(list2));
+        //System.out.println(list1.containsAll(list2));
+
+        List<Long> list3 = Lists.newArrayList(1L);
+        list3.remove(1L);
+        System.out.println(list3.subList(0,list3.size()));
     }
 
     @Test
@@ -199,6 +204,9 @@ public class Test01 {
 
         // 此处注意要用 List<Map<String,Object>> map 接收
         PhoneFilterResultVO phoneFilterResultVO = JSON.parseObject(str, PhoneFilterResultVO.class);
+
+        System.out.println(Objects.nonNull(phoneFilterResultVO.getTestValue()) ? !phoneFilterResultVO.getTestValue() : null);
+
         System.out.println(JSON.toJSONString(phoneFilterResultVO));
     }
 

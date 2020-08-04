@@ -18,6 +18,8 @@ public class PhoneFilterResultVO {
 
     private Long taskTypeId;
 
+    private Boolean testValue;
+
     private List<Map<String,Object>> extData;
 
 }
