@@ -1,11 +1,8 @@
 package com.planning.review.nio.socket;
 
-import java.io.IOException;
 import java.net.InetSocketAddress;
-import java.nio.Buffer;
 import java.nio.ByteBuffer;
 import java.nio.channels.SocketChannel;
-import java.util.Scanner;
 
 /**
  * @author yxc
@@ -27,18 +24,11 @@ public class NIOClient {
                 System.out.println("Client: 连接服务器的同时，还可以做一些额外的事情");
             }
         }
-        // 5. 得到一个缓冲区并存入数据
-/*        String msg = "hello, nio server";
-        ByteBuffer buffer = ByteBuffer.wrap(msg.getBytes());
-        // 6. 发送数据
-        channel.write(buffer);*/
-
-        Scanner scanner = new Scanner(System.in);
-        String msg = scanner.nextLine();
-        while(scanner.hasNextLine()){
-            ByteBuffer buffer = ByteBuffer.wrap(msg.getBytes());
-            // 6. 发送数据
-            channel.write(buffer);
-        }
+        //5. 得到一个缓冲区并存入数据
+        String msg="hello,Server";
+        ByteBuffer writeBuf = ByteBuffer.wrap(msg.getBytes());
+        //6. 发送数据
+        channel.write(writeBuf);
+        System.in.read(); // 防止立即结束
     }
 }
