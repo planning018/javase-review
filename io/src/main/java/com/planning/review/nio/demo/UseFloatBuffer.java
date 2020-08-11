@@ -9,9 +9,9 @@ import java.nio.FloatBuffer;
 public class UseFloatBuffer {
 
     public static void main(String[] args) {
-        FloatBuffer buffer = FloatBuffer.allocate(11);
+        FloatBuffer buffer = FloatBuffer.allocate(5);
 
-        for (int i = 1; i < buffer.capacity(); i++) {
+        for (int i = 0; i < buffer.capacity(); i++) {
             float f = (float) Math.sin((((float) i) / 10) * (2 * Math.PI));
             buffer.put(f);
         }

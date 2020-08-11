@@ -3,6 +3,7 @@ package com.planning.review.nio.socket;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.SocketChannel;
+import java.util.Scanner;
 
 /**
  * @author yxc
@@ -25,10 +26,19 @@ public class NIOClient {
             }
         }
         //5. 得到一个缓冲区并存入数据
-        String msg="hello,Server";
+/*        String msg="hello,Server";
         ByteBuffer writeBuf = ByteBuffer.wrap(msg.getBytes());
         //6. 发送数据
         channel.write(writeBuf);
-        System.in.read(); // 防止立即结束
+        System.in.read(); // 防止立即结束*/
+
+        // todo 这边存在一个疑问，服务端收到的数据不对
+        Scanner scanner = new Scanner(System.in);
+        while(scanner.hasNext()){
+            String msg = scanner.nextLine();
+            ByteBuffer writeBuf = ByteBuffer.wrap(msg.getBytes());
+            channel.write(writeBuf);
+            writeBuf.clear();
+        }
     }
 }
