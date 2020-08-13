@@ -100,7 +100,9 @@ public class Test01 {
         //System.out.println(complexString.replaceAll("a0","a0 \n"));
 
 
-        System.out.println(StringUtils.strip("[a,b]","[]"));
+        // System.out.println(StringUtils.strip("[a,b]","[]"));
+        System.out.println(String.valueOf(System.currentTimeMillis()));
+        System.out.println(String.valueOf(System.currentTimeMillis() - 60));
 
     }
 
@@ -214,8 +216,18 @@ public class Test01 {
     public void testCal(){
         Calendar calendar = Calendar.getInstance();
         calendar.set(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DATE),23,59,59);
-
         System.out.println(calendar.getTime());
+    }
+
+    @Test
+    public void testCall(){
+        Person p = new Person("","");
+        doCallPerson(p);
+        System.out.println(JSON.toJSONString(p));
+    }
+
+    private void doCallPerson(Person personList){
+        personList.setAddress("123");
     }
 
 }
