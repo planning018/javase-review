@@ -53,4 +53,17 @@ public class LambdaExamples {
             System.out.println(k + " --- " + v);
         });
     }
+
+    /**
+     * 使用未既成事实的 final 变量，会导致无法通过编译
+     */
+    public void testFinalVar(){
+        String name = "Hello" + "world";
+        name = "Lambda";
+
+        List<String> tempList = Arrays.asList("1","2","3");
+
+        // 使用未既成事实的 final 变量，会导致无法通过编译
+        // tempList.forEach(num -> num + name);
+    }
 }
