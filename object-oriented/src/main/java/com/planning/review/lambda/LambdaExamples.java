@@ -2,6 +2,8 @@ package com.planning.review.lambda;
 
 import org.junit.Test;
 
+import javax.swing.text.DateFormatter;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -65,5 +67,16 @@ public class LambdaExamples {
 
         // 使用未既成事实的 final 变量，会导致无法通过编译
         // tempList.forEach(num -> num + name);
+    }
+
+    @Test
+    public void testTL(){
+        ThreadLocal<DateFormatter> initial = ThreadLocal.withInitial(() -> new DateFormatter(new SimpleDateFormat("yyyy-MM-dd")));
+    }
+
+    @Test
+    public void testListNull(){
+        List<Integer> list = Arrays.asList(1,2,3,4,null);
+        list.forEach(num -> System.out.println(num.equals(3)));
     }
 }
