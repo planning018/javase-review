@@ -105,7 +105,11 @@ public class StreamAPIStudy {
         // 过滤 + 字符串拼接
         String concatResult = Stream.of("a", "B", "c", "D", "e", "F").filter(x -> x.compareTo("Z") > 0).reduce("", String::concat);
         System.out.println("concatResult result is " + concatResult);
+    }
 
+    public void testFindMin(){
+        List<Integer> data = Arrays.asList(1,2,3,4,5);
+        // data.stream().collect()
     }
 
 
