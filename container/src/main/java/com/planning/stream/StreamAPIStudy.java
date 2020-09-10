@@ -1,6 +1,9 @@
 package com.planning.stream;
 
 import com.alibaba.fastjson.JSON;
+import org.junit.Test;
+
+import static junit.framework.Assert.assertEquals;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -75,7 +78,8 @@ public class StreamAPIStudy {
                 Arrays.asList(2, 3),
                 Arrays.asList(4, 5, 6)
         );
-        Stream<Integer> outputStream = inputStream.flatMap((childList) -> childList.stream()); // can be replace by : Collection :: stream
+        // can be replace by : Collection :: stream
+        Stream<Integer> outputStream = inputStream.flatMap((childList) -> childList.stream());
         System.out.println(JSON.toJSONString(outputStream.collect(Collectors.toList())));
     }
 
@@ -98,8 +102,10 @@ public class StreamAPIStudy {
         System.out.println("minValue result is " + minValue);
 
         // 求和
-        Integer sumValue = Stream.of(1, 2, 3, 4).reduce(0, Integer::sum); // 有起始值
-        sumValue = Stream.of(1,2,3,4).reduce(Integer::sum).get(); // 无起始值
+        // 有起始值
+        Integer sumValue = Stream.of(1, 2, 3, 4).reduce(0, Integer::sum);
+        // 无起始值
+        sumValue = Stream.of(1,2,3,4).reduce(Integer::sum).get();
         System.out.println("sumValue result is " + sumValue);
 
         // 过滤 + 字符串拼接
@@ -107,19 +113,32 @@ public class StreamAPIStudy {
         System.out.println("concatResult result is " + concatResult);
     }
 
-    public void testFindMin(){
-        List<Integer> data = Arrays.asList(1,2,3,4,5);
-        // data.stream().collect()
+    @Test
+    public void streamSorted(){
+        Set<Integer> numSet = new HashSet<>(Arrays.asList(1,3,2,6,5,0));
+
+        List<Integer> sortList = numSet.stream().sorted().collect(Collectors.toList());
+        List<Integer> sortReverseList = numSet.stream().sorted(Comparator.reverseOrder()).collect(Collectors.toList());
+        System.out.println(JSON.toJSONString(sortList));
+        System.out.println(JSON.toJSONString(sortReverseList));
     }
 
+    @Test
+    public void testPeek(){
+        List<String> list = Stream.of("one", "two", "three", "four")
+                .filter(e -> e.length() > 3)
+                .peek(e -> System.out.println("Filter value " + e))
+                .map(String::toUpperCase)
+                .peek(e -> System.out.println("Map value " + e))
+                .collect(Collectors.toList());
+        System.out.println(list);
+    }
 
-
-
-
-
-
-
-
+    @Test
+    public void testLimitSkip(){
+        List<Integer> list = Stream.of(1, 2, 3, 4, 5, 6, 7).limit(5).skip(3).collect(Collectors.toList());
+        System.out.println(list);
+    }
 
     public static void main(String[] args) {
         //constructIntStream();
@@ -130,10 +149,6 @@ public class StreamAPIStudy {
 
         //streamFilterNum();
         streamReduce();
-
-        // TODO: 2019/9/26 后续在补充 limit/skip,  sorted, min/max/distinct, Match 等 API
     }
-
-
 
 }
