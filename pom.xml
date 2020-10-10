@@ -17,6 +17,7 @@
         <module>container</module>
         <module>object-oriented</module>
         <module>design-patterns</module>
+        <module>algorithm</module>
     </modules>
 
     <properties>
