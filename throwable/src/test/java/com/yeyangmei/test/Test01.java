@@ -230,4 +230,9 @@ public class Test01 {
         personList.setAddress("123");
     }
 
+    @Test
+    public void testList(){
+        List<Long> testList = Collections.emptyList();
+        System.out.println(testList.contains(1L));
+    }
 }
