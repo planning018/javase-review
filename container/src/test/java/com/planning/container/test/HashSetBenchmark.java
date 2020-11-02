@@ -28,13 +28,13 @@ import java.util.concurrent.TimeUnit;
  * @author yxc
  * @since 2020-10-24 9:33
  **/
-@BenchmarkMode({Mode.Throughput})
+/*@BenchmarkMode({Mode.Throughput})
 @OutputTimeUnit(TimeUnit.SECONDS)
 @Warmup(iterations = 1)
 @Measurement(iterations = 2)
 @Threads(1)
 @Fork(1)
-@State(Scope.Thread)
+@State(Scope.Thread)*/
 public class HashSetBenchmark {
 
     public static class MyState {
@@ -54,7 +54,7 @@ public class HashSetBenchmark {
         private long list1Size = 50000;
         private long list2Size = 60000;
 
-        @Setup(Level.Trial)
+        //@Setup(Level.Trial)
         public void setUp(){
             for (long i = 0; i < set1Size; i++) {
                 employeesSet1.add(new Employee(i, RandomStringUtils.random(7, true, false)));
@@ -81,17 +81,17 @@ public class HashSetBenchmark {
             }
         }
 
-        @Benchmark
+        //@Benchmark
         public boolean given_sizeOfHashSetGreaterThanSizeOfCollection_when_removeAllFromHashSet_then_goodPerformance(MyState state){
             return state.employeesSet1.removeAll(state.employeeList1);
         }
 
-        @Benchmark
+       // @Benchmark
         public boolean given_sizeOfHashSetSmallerThanSizeOfCollection_when_removeAllFromHashSet_then_badPerformance(MyState state){
             return state.employeesSet2.removeAll(state.employeeList2);
         }
 
-        @Benchmark
+        //@Benchmark
         public boolean given_sizeOfHashSetSmallerThanSizeOfAnotherHashSet_when_removeAllFromHashSet_then_goodPerformance(MyState state){
             return state.employeesSet3.removeAll(state.employeesSet4);
         }
