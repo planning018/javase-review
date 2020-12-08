@@ -11,6 +11,10 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -235,4 +239,18 @@ public class Test01 {
         List<Long> testList = Collections.emptyList();
         System.out.println(testList.contains(1L));
     }
+
+    @Test
+    public void testDateTime(){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("YYYY/MM/dd");
+        System.out.println(formatter.format(LocalDate.now()));
+        System.out.println(formatter.format(new Date(1607416537000L).toInstant().atZone(ZoneId.systemDefault()).toLocalDate()));
+    }
+
+    @Test
+    public void testReplace() {
+        String text = "<font color='#FA871E' style='font-size:14px;'><fontsize size='14px'>请于date前补齐保证金，否则抢单需读秒</fontsize></font>";
+        System.out.println(text.replace("date", "2020/10/18"));
+    }
+
 }
