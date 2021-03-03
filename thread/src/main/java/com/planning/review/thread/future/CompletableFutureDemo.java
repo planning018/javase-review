@@ -1,12 +1,19 @@
 package com.planning.review.thread.future;
 
+import com.alibaba.fastjson.JSON;
+import com.google.common.collect.Lists;
 import org.junit.Test;
 
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadFactory;
+import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.IntStream;
 
 /**
  * Completable demo
@@ -220,5 +227,47 @@ public class CompletableFutureDemo {
         });
 
         System.out.println("Maturity : " + maturityFuture.get());
+    }
+
+
+    @Test
+    public void testCompletableFutureAndExecutorService(){
+        List<Long> numList = Lists.newArrayList();
+
+        // 1. 定义线程池
+        ExecutorService executorService = Executors.newFixedThreadPool(3);
+
+        // 2. 多个 CompletableFuture 并行
+        List<CompletableFuture<List<Long>>> completableFutures = Lists.newArrayList();
+/*        IntStream.of(1000).forEach(i -> {
+
+        });*/
+
+        for (int i = 0; i < 1000; i++) {
+            CompletableFuture<List<Long>> future = CompletableFuture.supplyAsync(() -> {
+                numList.add(System.currentTimeMillis());
+                try {
+                    TimeUnit.MILLISECONDS.sleep(1);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                return numList;
+            }, executorService);
+            completableFutures.add(future);
+        }
+
+        // 3. 验证结果
+        CompletableFuture.allOf(completableFutures.toArray(new CompletableFuture[0])).thenRunAsync(() -> {
+            System.out.println("end counting...");
+        });
+
+        System.out.println("result is " + JSON.toJSONString(numList));
+    }
+
+    @Test
+    public void testPara(){
+        for (int i = 0; i < 100; i++) {
+            testCompletableFutureAndExecutorService();
+        }
     }
 }
