@@ -238,23 +238,14 @@ public class CompletableFutureDemo {
         ExecutorService executorService = Executors.newFixedThreadPool(3);
 
         // 2. 多个 CompletableFuture 并行
-        List<CompletableFuture<List<Long>>> completableFutures = Lists.newArrayList();
-/*        IntStream.of(1000).forEach(i -> {
-
-        });*/
-
-        for (int i = 0; i < 1000; i++) {
-            CompletableFuture<List<Long>> future = CompletableFuture.supplyAsync(() -> {
+        List<CompletableFuture<Void>> completableFutures = Lists.newArrayList();
+        List<Integer> nums = Lists.newArrayList(1,2,3);
+        nums.forEach(i -> {
+            CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
                 numList.add(System.currentTimeMillis());
-                try {
-                    TimeUnit.MILLISECONDS.sleep(1);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                return numList;
             }, executorService);
             completableFutures.add(future);
-        }
+        });
 
         // 3. 验证结果
         CompletableFuture.allOf(completableFutures.toArray(new CompletableFuture[0])).thenRunAsync(() -> {
