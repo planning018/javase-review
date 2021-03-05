@@ -10,7 +10,7 @@ import java.io.*;
  * @author planning
  * 
  */
-public class IO_1 {
+public class FileWriterDemo {
 
 	/**
 	 * 使用IO流写文件 --- FileWriter

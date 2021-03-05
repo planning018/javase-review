@@ -14,11 +14,11 @@ public class ChatClient {
     /**
      * 服务器地址
      */
-    private final String HOST = "127.0.0.1";
+    private static final String HOST = "127.0.0.1";
     /**
      * 服务器端口
      */
-    private final int PORT = 9999;
+    private static final int PORT = 9999;
     /**
      * 网络通道
      */

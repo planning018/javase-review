@@ -10,7 +10,7 @@ import java.util.Scanner;
  * @author planning
  *
  */
-public class IO_4 {
+public class ScannerDemo {
 	
 	/**
 	 * 键盘录入数据写入到文本文件中，over表示结束

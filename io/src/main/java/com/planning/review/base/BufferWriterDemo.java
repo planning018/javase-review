@@ -10,7 +10,7 @@ import java.io.*;
  * @author planning
  *
  */
-public class IO_3 {
+public class BufferWriterDemo {
 	
 	/**
 	 * 使用高效输入流 BufferedReader 读取文件

@@ -11,7 +11,7 @@ import java.io.IOException;
  * @author planning
  *
  */
-public class IO_2 {
+public class FileOutputStreamDemo {
 	
 	/**
 	 * 字符输出流  --- FileOutputStream
