@@ -4,11 +4,12 @@ import org.junit.Test;
 
 /**
  * 数组的一些排序方法
+ *
  * @Author: planning
  * @Date: 2017/3/5
  */
 public class ArraySort {
-    private int[] arr = { 1, 4, 7, 23, 14, 51, 66, 2 };
+    private int[] arr = {1, 4, 7, 23, 14, 51, 66, 2};
 
     /**
      * 冒泡排序
@@ -50,18 +51,25 @@ public class ArraySort {
      */
     @Test
     public int binarySort() {
-        int target = 23; // 目标值：23
-        int low = 0; // 最小索引
-        int high = arr.length - 1; // 最大的索引
+        // 目标值：23
+        int target = 23;
+        // 最小索引
+        int low = 0;
+        // 最大的索引
+        int high = arr.length - 1;
 
         while (low <= high) {
             System.out.println("-----");
-            int mid = (low + high) >>> 1; // 中间的索引
-            int minValue = arr[mid]; // 中间的元素值
+            // 中间的索引
+            int mid = (low + high) >>> 1;
+            // 中间的元素值
+            int minValue = arr[mid];
             if (target > minValue) {
-                low = mid; // 往右移动
+                // 往右移动
+                low = mid;
             } else if (target < minValue) {
-                high = mid; // 向左移动
+                // 向左移动
+                high = mid;
             } else {
                 return mid;
             }

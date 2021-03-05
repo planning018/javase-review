@@ -11,11 +11,11 @@ public class HelloTest {
 
     public static void main(String[] args){
         IHello hello = new HelloProxy();
-        HelloLoggerHander loggerHander = new HelloLoggerHander(hello);
+        HelloLoggerHandler loggerHandler = new HelloLoggerHandler(hello);
         IHello proxy = (IHello) Proxy.newProxyInstance(
                 Thread.currentThread().getContextClassLoader(),
                 hello.getClass().getInterfaces(),
-                loggerHander
+                loggerHandler
         );
         proxy.sayHello();
     }

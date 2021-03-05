@@ -1,6 +1,8 @@
 package com.planning.stream;
 
 import com.alibaba.fastjson.JSON;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -164,6 +166,15 @@ public class FileStream {
         try(JarFile jarFile = new JarFile(jarFilePath)){
             jarFile.stream().filter(file -> file.getName().contains("Ab")).forEach(System.out::println);
         }
+    }
+
+    @Data
+    @AllArgsConstructor
+    private class Cake {
+
+        private int id;
+        private String name;
+        private int price;
     }
 
 }

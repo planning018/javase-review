@@ -7,6 +7,9 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 
+/**
+ * @author planning
+ */
 public class SendThread implements Runnable{
 
 	private DatagramSocket ds;

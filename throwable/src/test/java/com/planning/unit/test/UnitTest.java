@@ -1,17 +1,14 @@
-package com.yeyangmei.test;
+package com.planning.unit.test;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
-import com.yeyangmei.bean.Person;
-import com.yeyangmei.bean.PhoneFilterResultVO;
+import lombok.Data;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -22,9 +19,9 @@ import java.util.stream.Collectors;
  * @Author: planning
  * @Date: 2019/5/26 11:38
  */
-public class Test01 {
+public class UnitTest {
 
-    private static Logger logger = LoggerFactory.getLogger(Test01.class);
+    private static Logger logger = LoggerFactory.getLogger(UnitTest.class);
 
     // character replace
     private String replace(String truckLength, String occupyTruckLength) {
@@ -139,6 +136,38 @@ public class Test01 {
         //logger.info(finalTruckLengthNew(truckLength,occupyTruckLength2));
     }
 
+    public class Person {
+
+        private String name;
+        private String address;
+
+        public Person(String name, String address) {
+            this.name = name;
+            this.address = address;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getAddress() {
+            return address;
+        }
+
+        public void setAddress(String address) {
+            this.address = address;
+        }
+
+        @Override
+        public String toString() {
+            return "name is " + this.name + ", address is " + this.address;
+        }
+    }
+
     @Test
     public void testObject() {
         Person p1 = new Person("zhangsan", "123");
@@ -152,6 +181,16 @@ public class Test01 {
             return p2;
         }
         return p1;
+    }
+
+    /**
+     * @author planning
+     * @since 2020-04-28 10:34
+     **/
+    @Data
+    public class TestListResponse {
+
+        private List<Person> personList;
     }
 
     @Test
@@ -187,6 +226,21 @@ public class Test01 {
             length++;
         }
         return length;
+    }
+
+    @Data
+    public class PhoneFilterResultVO {
+
+        private String reason;
+
+        private Long taskId;
+
+        private Long taskTypeId;
+
+        private Boolean testValue;
+
+        private List<Map<String,Object>> extData;
+
     }
 
     @Test
