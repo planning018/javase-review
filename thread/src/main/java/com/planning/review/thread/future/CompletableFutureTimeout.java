@@ -8,6 +8,7 @@ import org.junit.Test;
 import java.time.Duration;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -22,19 +23,13 @@ public class CompletableFutureTimeout {
 
     private static final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(4);
 
-    private <T> CompletableFuture<T> timeoutAfter(long timeout, TimeUnit unit) {
-        CompletableFuture<T> result = new CompletableFuture<T>();
-        scheduler.schedule(() -> result.completeExceptionally(new TimeoutException()), timeout, unit);
-        return result;
-    }
-
     /**
      * CompletableFuture timeout
      */
     @Test
     public void testSupplyAsyncAndTimeOut() {
         // 准备超时组件
-        final CompletableFuture<Object> oneSecondTimeout = failAfter(Duration.ofSeconds(1)).exceptionally(xxx -> "timeout exception");
+        final CompletableFuture<Object> oneSecondTimeout = failAfter(Duration.ofMillis(500L)).exceptionally(xxx -> "timeout exception");
 
         // 开始执行任务，并汇总结果
         List<Long> nums = Lists.newArrayList(1L, 2L, 3L);
@@ -53,6 +48,34 @@ public class CompletableFutureTimeout {
 
             result.addAll((List<Long>) obj);
         }
+
+        System.out.println(JSON.toJSONString(result));
+    }
+
+    @Test
+    public void testSupplyAsyncAndTimeOut2(){
+
+        ExecutorService executorService = Executors.newFixedThreadPool(3);
+
+        List<CompletableFuture<Void>> completableFutures = Lists.newArrayList();
+
+        List<Long> result = Lists.newArrayList();
+        List<Long> nums = Lists.newArrayList(1L, 2L, 3L);
+        nums.forEach(l -> {
+            // 这种方式也能实现中断，不过任务是串行执行的，没有上一种方法好
+            CompletableFuture.supplyAsync(() -> computeNum(l), executorService)
+                    .acceptEither(timeoutAfter(400L), result::addAll)
+                    .join();
+
+            /*
+             * 这种方式会随机丢失部分结果
+             */
+            CompletableFuture<Void> future = CompletableFuture.supplyAsync(() -> computeNum(l), executorService)
+                    .acceptEither(timeoutAfter(500L), result::addAll);
+            completableFutures.add(future);
+        });
+
+        CompletableFuture.allOf(completableFutures.toArray(new CompletableFuture[0])).join();
 
         System.out.println(JSON.toJSONString(result));
     }
@@ -97,5 +120,19 @@ public class CompletableFutureTimeout {
             e.printStackTrace();
         }
         return Lists.newArrayList(RandomUtils.nextLong(), l);
+    }
+
+    @Test
+    public void testCompletableFutureWithAcceptEither(){
+        CompletableFuture.supplyAsync(() -> computeNum(RandomUtils.nextLong()))
+                .acceptEither(timeoutAfter(200L), result -> System.out.println("compute task result: " + JSON.toJSONString(result)))
+                .exceptionally(ex -> null)
+                .join();
+    }
+
+    private <T> CompletableFuture<T> timeoutAfter(Long timeout) {
+        CompletableFuture<T> result = new CompletableFuture<T>();
+        scheduler.schedule(() -> result.completeExceptionally(new TimeoutException()), timeout, TimeUnit.MILLISECONDS);
+        return result;
     }
 }
