@@ -1,5 +1,6 @@
 package com.planning.review.basic;
 
+import com.planning.review.classloader.PathClassLoader;
 import org.junit.Test;
 
 /**
@@ -13,5 +14,11 @@ public class DemoTest {
         Double num1 = 3.9;
         System.out.println(num1 / 100);
         System.out.println( 60/100.0);
+    }
+
+    @Test
+    public void testClassLoader(){
+        PathClassLoader pathClassLoader = new PathClassLoader("com.planning.review.array.ArraySort");
+
     }
 }
