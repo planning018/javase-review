@@ -10,8 +10,10 @@ import java.util.concurrent.locks.ReentrantLock;
 public class Ticket implements Runnable {
 
 	private int tickets = 100;
-	
-	//定义一个锁对象
+
+	/**
+	 * 定义一个锁对象
+	 */
 	private Lock lock = new ReentrantLock();
 
 	@Override
@@ -19,19 +21,22 @@ public class Ticket implements Runnable {
 		while (true) {
             //加锁
 			lock.lock();
-			if (tickets > 0) {
-				try {
-					Thread.sleep(10);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
+			try {
+				if (tickets > 0) {
+					try {
+						Thread.sleep(10);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+					System.out.println(Thread.currentThread().getName() + "正在售出第"
+							+ (tickets--) + "张票！");
+				} else {
+					break;
 				}
-				System.out.println(Thread.currentThread().getName() + "正在售出第"
-						+ (tickets--) + "张票！");
-			} else {
-				break;
+			} finally {
+				//解锁
+				lock.unlock();
 			}
-			//解锁
-			lock.unlock();
 		}
 	}
 }
