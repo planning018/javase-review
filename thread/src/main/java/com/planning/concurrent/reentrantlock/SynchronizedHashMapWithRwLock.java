@@ -79,7 +79,7 @@ public class SynchronizedHashMapWithRwLock {
 
         service.execute(new Thread(new Writer(object), "Writer"));
         service.execute(new Thread(new Reader(object), "Reader1"));
-        //service.execute(new Thread(new Reader(object), "Reader2"));
+        service.execute(new Thread(new Reader(object), "Reader2"));
 
         service.shutdown();
     }
@@ -94,7 +94,7 @@ public class SynchronizedHashMapWithRwLock {
 
         @Override
         public void run() {
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < 3; i++) {
                 object.get("key" + i);
             }
         }
@@ -110,7 +110,7 @@ public class SynchronizedHashMapWithRwLock {
 
         @Override
         public void run() {
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < 3; i++) {
                 object.put("key" + i, "value" + i);
             }
         }

@@ -23,8 +23,8 @@ public class ShareObjectWithLock {
     }
 
     private void perform() {
-        log.info("Thread - " + Thread.currentThread().getName() + " acquire the lock");
         lock.lock();
+        log.info("Thread - " + Thread.currentThread().getName() + " acquire the lock");
         try {
             log.info("Thread - " + Thread.currentThread().getName() + " processing");
             counter++;
@@ -37,17 +37,16 @@ public class ShareObjectWithLock {
     }
 
     private void performTryLock() {
+        // 日志打印顺序可能有误，结果是符合预期的
         log.info("Thread - " + Thread.currentThread().getName() + " attempting to acquire the lock");
-
         try {
-            // todo 这一块存疑，执行结果和预期不符
-            boolean isLockAcquire = lock.tryLock(2, TimeUnit.SECONDS);
+            boolean isLockAcquire = lock.tryLock(150, TimeUnit.MILLISECONDS);
             if (isLockAcquire) {
                 try {
                     log.info("Thread - " + Thread.currentThread().getName() + " acquire the lock");
                     log.info("Thread - " + Thread.currentThread().getName() + " processing");
                     counter++;
-                    Thread.sleep(100);
+                    Thread.sleep(40);
                 } finally {
                     lock.unlock();
                     log.info("Thread - " + Thread.currentThread().getName() + " release the lock");
@@ -72,7 +71,7 @@ public class ShareObjectWithLock {
 
         service.shutdown();
 
-        Thread.sleep(10000);
+        Thread.sleep(500);
         log.info("counter is {}", object.getCounter());
     }
 }
