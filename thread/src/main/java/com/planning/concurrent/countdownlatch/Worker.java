@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
 /**
+ * 详细使用见 {@link com.planning.concurrent.countdownlatch.CountdownLatchTest}
+ *
  * @author yxc
  * @date 2021/1/13 20:07
  */
