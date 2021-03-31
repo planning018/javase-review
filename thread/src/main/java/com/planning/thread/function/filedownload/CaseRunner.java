@@ -1,13 +1,13 @@
 package com.planning.thread.function.filedownload;
 
-
 import com.planning.thread.utils.Debug;
 
 public class CaseRunner {
 
     public static void main(String[] args) throws Exception {
         if (0 == args.length) {
-            args = new String[] { "https://park.zunmi.cn", "2", "3" };  // todo 去哪边找个东西下载
+            // todo 找不到合适的下载资源，demo 一直没能跑起来
+            args = new String[] { "https://unsplash.com/photos/g2E2NQ5SWSU/download?force=true", "2", "3" };
         }
         main0(args);
     }

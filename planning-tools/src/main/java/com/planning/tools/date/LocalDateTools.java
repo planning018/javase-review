@@ -1,5 +1,7 @@
 package com.planning.tools.date;
 
+import org.junit.Test;
+
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
@@ -32,4 +34,13 @@ public class LocalDateTools {
         System.out.println(LocalDateTime.now().minusMinutes(5).toInstant(ZoneOffset.of("+8")).toEpochMilli());
     }
 
+
+    public static String getNow(){
+        return LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+    }
+
+    @Test
+    public void test(){
+        System.out.println(getNow());
+    }
 }
