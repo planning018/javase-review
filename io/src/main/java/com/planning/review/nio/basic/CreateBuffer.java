@@ -1,22 +1,20 @@
-package com.planning.review.nio.demo;
+package com.planning.review.nio.basic;
 
 import java.nio.ByteBuffer;
 
 /**
  * @author yxc
- * @since 2020-08-04 19:42
+ * @since 2020-08-04 20:13
  **/
-public class CreateArrayBuffer {
+public class CreateBuffer {
 
     public static void main(String[] args) {
-        byte[] array = new byte[1024];
+        ByteBuffer buffer = ByteBuffer.allocate(1024);
 
-        ByteBuffer buffer = ByteBuffer.wrap(array);
-
-        buffer.put((byte) 'a');
-        buffer.put((byte) 'b');
+        buffer.put((byte) 'z');
+        buffer.put((byte) 'x');
         buffer.put((byte) 'c');
-        buffer.put((byte) 'd');
+        buffer.put((byte) 'v');
 
         buffer.flip();
 

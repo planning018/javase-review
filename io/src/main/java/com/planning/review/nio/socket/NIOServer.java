@@ -49,7 +49,8 @@ public class NIOServer {
                 // 读取客户端数据事件
                 if (key.isReadable()) {
                     SocketChannel channel = (SocketChannel) key.channel();
-                    ByteBuffer buffer = (ByteBuffer) key.attachment();
+                    //ByteBuffer buffer = (ByteBuffer) key.attachment();
+                    ByteBuffer buffer = ByteBuffer.allocate(1024);
                     channel.read(buffer);
                     System.out.println("客户端发来数据：" + new String(buffer.array()));
                 }

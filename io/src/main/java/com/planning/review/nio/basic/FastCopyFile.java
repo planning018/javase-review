@@ -1,4 +1,4 @@
-package com.planning.review.nio.demo;
+package com.planning.review.nio.basic;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;

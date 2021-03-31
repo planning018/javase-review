@@ -5,6 +5,7 @@ import org.junit.Test;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.nio.Buffer;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 
@@ -16,7 +17,7 @@ public class ReadAndWrite {
 
     /**
      * 往本地文件中写数据
-     * @throws Exception
+     * @throws Exception exception
      */
     @Test
     public void testWrite() throws Exception {
@@ -39,7 +40,7 @@ public class ReadAndWrite {
 
     /**
      * 从本地文件中读取数据
-     * @throws Exception
+     * @throws Exception exception
      */
     @Test
     public void testRead() throws Exception{
@@ -71,6 +72,34 @@ public class ReadAndWrite {
 
         fis.close();
         fos.close();
+    }
 
+    /**
+     * nio 复制文件，不直接使用 api
+     * @throws Exception exception
+     */
+    @Test
+    public void testCopyFileOrigin() throws Exception {
+        FileInputStream fis = new FileInputStream("readAndWrite.txt");
+        FileOutputStream fos = new FileOutputStream("CopyFileOrigin.txt");
+
+        FileChannel fisChannel = fis.getChannel();
+        FileChannel fosChannel = fos.getChannel();
+
+        ByteBuffer buffer = ByteBuffer.allocate(1024);
+
+        while(true){
+            buffer.clear();
+            // 此处对于通道 Channel 来说是读数据，但是对于 Buffer 而言，是写数据
+            int read = fisChannel.read(buffer);
+            if(read == -1){
+                break;
+            }
+            buffer.flip();
+            fosChannel.write(buffer);
+        }
+
+        fis.close();
+        fos.close();
     }
 }
