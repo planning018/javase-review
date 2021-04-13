@@ -51,7 +51,7 @@ public class MySimpleNettyServer {
                              *
                              *  给 pipeline 设置处理器
                              */
-                            socketChannel.pipeline().addLast(new MySimpleNettyServerHander());
+                            socketChannel.pipeline().addLast(new MySimpleNettyServerHandler());
                         }
                     });
             System.out.println("服务器 ready....");

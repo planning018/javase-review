@@ -30,7 +30,7 @@ public class MySimpleNettyClient {
                         @Override
                         protected void initChannel(SocketChannel socketChannel) throws Exception {
                             // 加入自己的处理器
-                            socketChannel.pipeline().addLast(new MySimpleNettyClientHander());
+                            socketChannel.pipeline().addLast(new MySimpleNettyClientHandler());
                         }
                     });
             System.out.println("客户端 ok");
