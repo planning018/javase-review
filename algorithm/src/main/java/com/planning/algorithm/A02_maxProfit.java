@@ -18,7 +18,7 @@ import org.junit.Test;
  * @author yxc
  * @since 2020-10-13 9:42
  **/
-public class Demo02 {
+public class A02_maxProfit {
 
     public int maxProfit1(int[] prices) {
         int i = 0;

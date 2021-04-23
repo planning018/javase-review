@@ -17,7 +17,7 @@ import org.junit.Test;
  * @author yxc
  * @since 2020-10-22 9:44
  **/
-public class Demo3 {
+public class A03_rotateArray {
 
     @Test
     public void moveArray() {

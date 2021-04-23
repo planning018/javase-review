@@ -17,7 +17,7 @@ import org.junit.Test;
  * @author yxc
  * @since 2020-10-10 14:19
  **/
-public class Demo01 {
+public class A01_removeDup {
 
     public int removeDuplicates(int[] nums) {
         if(nums.length == 0){
