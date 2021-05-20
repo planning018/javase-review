@@ -59,8 +59,8 @@ public class A04_TwoSum {
 
     public static void main(String[] args) {
         A04_TwoSum testClass = new A04_TwoSum();
-        int[] nums = {2, 7, 11, 15};
+        int[] nums = {3,2,4};
 
-        System.out.println(JSON.toJSONString(testClass.twoSum(nums, 18)));
+        System.out.println(JSON.toJSONString(testClass.twoSum(nums, 6)));
     }
 }

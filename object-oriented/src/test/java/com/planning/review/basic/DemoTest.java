@@ -17,6 +17,7 @@ public class DemoTest {
         Double num1 = 3.9;
         System.out.println(num1 / 100);
         System.out.println( 60/100.0);
+        System.out.println(499 / 20);
     }
 
     @Test
